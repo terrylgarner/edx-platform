@@ -454,12 +454,24 @@ define(['jquery', 'backbone', 'underscore', 'gettext', 'js/views/baseview',
 
         getRequestData: function() {
             if (this.getValue() < 19 && this.getValue() > 0 && $('#grading_type').val() !== 'notgraded') {
+                window.analytics.track('edx.bi.studio.relative_date.saved', {
+                    org_key: course.get('org'),
+                    courserun_key: course.get('id'),
+                    block_id: this.model.get('id'),
+                    relative_weeks_due: this.getValue()
+                });
                 return {
                     metadata: {
                         relative_weeks_due: this.getValue()
                     }
                 };
             } else {
+                window.analytics.track('edx.bi.studio.relative_date.saved', {
+                    org_key: course.get('org'),
+                    courserun_key: course.get('id'),
+                    block_id: this.model.get('id'),
+                    relative_weeks_due: null
+                });
                 return {
                     metadata: {
                         relative_weeks_due: null
