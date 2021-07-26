@@ -16,7 +16,6 @@ from ratelimitbackend import admin
 
 from lms.djangoapps.branding import views as branding_views
 from lms.djangoapps.debug import views as debug_views
-from lms.djangoapps.certificates import views as certificates_views
 from lms.djangoapps.courseware.masquerade import MasqueradeView
 from lms.djangoapps.courseware.module_render import (
     handle_xblock_callback,
@@ -888,13 +887,6 @@ if settings.FEATURES.get('ENABLE_OAUTH2_PROVIDER'):
 # Certificates
 urlpatterns += [
     url(r'^certificates/', include('lms.djangoapps.certificates.urls')),
-
-    # Backwards compatibility with XQueue, which uses URLs that are not prefixed with /certificates/
-    url(r'^update_certificate$', certificates_views.update_certificate, name='update_certificate'),
-    url(r'^update_example_certificate$', certificates_views.update_example_certificate,
-        name='update_example_certificate'),
-    url(r'^request_certificate$', certificates_views.request_certificate,
-        name='request_certificate'),
 
     # REST APIs
     url(r'^api/certificates/',
